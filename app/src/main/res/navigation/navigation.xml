@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.devsiele.roomdatabase.main.listitems.ListFragment"
+        android:label="list_fragment"
+        tools:layout="@layout/list_fragment" >
+        <action
+            android:id="@+id/action_listFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_in_left" >
+            <argument
+                android:name="id"
+                app:argType="long" />
+            <argument
+                android:name="category"
+                app:argType="string" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+            <argument
+                android:name="content_text"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/addNewFragment"
+        android:name="com.devsiele.roomdatabase.main.newitem.AddNewFragment"
+        android:label="add_new_fragment"
+        tools:layout="@layout/add_new_fragment" >
+        <action
+            android:id="@+id/action_addNewFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.devsiele.roomdatabase.main.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_in_left"/>
+
+
+        <action
+            android:id="@+id/action_detailFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment">
+            <argument
+                android:name="id"
+                app:argType="long" />
+            <argument
+                android:name="category"
+                app:argType="string" />
+            <argument
+                android:name="title"
+                app:argType="string" />
+            <argument
+                android:name="note"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <action
+        android:id="@+id/action_navigation_self"
+        app:destination="@id/navigation"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_enter_anim" />
+</navigation>
