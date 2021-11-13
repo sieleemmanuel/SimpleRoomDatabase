@@ -2,6 +2,8 @@ package com.devsiele.roomdatabase.main.listitems
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,12 +14,14 @@ import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.database.NoteDatabase
 import com.devsiele.roomdatabase.databinding.ListFragmentBinding
 import com.devsiele.roomdatabase.model.Note
+import java.util.*
 
 
 class ListFragment : Fragment(), ClickListener {
 
 
     private lateinit var viewModel: ListViewModel
+    private lateinit var adapter: RecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +40,7 @@ class ListFragment : Fragment(), ClickListener {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(ListViewModel::class.java)
 
-        val adapter = RecyclerAdapter(this)
+        adapter = RecyclerAdapter(this)
         binding.listRecyclerview.adapter = adapter
 
 
@@ -66,15 +70,47 @@ class ListFragment : Fragment(), ClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.option_menu, menu)
+
+
+        //getting searchView menu item
+        val searchView:SearchView = (menu.findItem(R.id.rv_search).actionView) as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                /** here we are calling a method to filter our recycler view. */
+                filter(newText)
+                return false
+            }
+        })
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.rv_search -> {
+    private fun filter(newText: String) {
+
+        viewModel.notelist.observe(viewLifecycleOwner, {
+
+            val filteredList: MutableList<Note> = mutableListOf()
+            for (note in it!!) {
+                // checking if the entered string matched with any item of our recycler view.
+                if (note.noteCategory.lowercase(Locale.getDefault())
+                        .contains(newText.lowercase(Locale.getDefault())) ||note.noteTitle.lowercase(Locale.getDefault())
+                        .contains(newText.lowercase(Locale.getDefault()))
+                ) {
+                    filteredList.add(note)
+                }
 
             }
-        }
-        return true
+            if (filteredList.isEmpty()) {
+                Toast.makeText(requireContext(), "No match found", Toast.LENGTH_SHORT).show()
+                adapter.noteList = filteredList
+            } else {
+                adapter.noteList = filteredList
+            }
+        })
     }
 
     private fun itemOnClick(note: Note) {

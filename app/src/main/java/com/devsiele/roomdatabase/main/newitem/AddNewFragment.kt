@@ -72,8 +72,8 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
 
             }
         } else {
+            binding.editNoteId.visibility = View.GONE
             binding.btnSave.setOnClickListener {
-
                 if (binding.editTextTitle.text?.isNotEmpty() == true) {
                     if (binding.editTextText.text?.isNotEmpty() == true) {
                         if (binding.editTextCategory.text.toString() != adapter.getItem(0).toString()) {

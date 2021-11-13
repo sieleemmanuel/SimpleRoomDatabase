@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.devsiele.roomdatabase.main.listitems.ListFragment"
-        android:label="list_fragment"
-        tools:layout="@layout/list_fragment" >
+        android:label="Note List"
+        tools:layout="@layout/list_fragment">
         <action
             android:id="@+id/action_listFragment_to_addNewFragment"
             app:destination="@id/addNewFragment"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/addNewFragment"
         android:name="com.devsiele.roomdatabase.main.newitem.AddNewFragment"
-        android:label="add_new_fragment"
+        android:label="Edit Note"
         tools:layout="@layout/add_new_fragment" >
         <action
             android:id="@+id/action_addNewFragment_to_listFragment"
@@ -48,13 +48,12 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.devsiele.roomdatabase.main.detail.DetailFragment"
-        android:label="DetailFragment" >
+        android:label="Note Contents" >
         <action
             android:id="@+id/action_detailFragment_to_listFragment"
             app:destination="@id/listFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_in_left"/>
-
 
         <action
             android:id="@+id/action_detailFragment_to_addNewFragment"
