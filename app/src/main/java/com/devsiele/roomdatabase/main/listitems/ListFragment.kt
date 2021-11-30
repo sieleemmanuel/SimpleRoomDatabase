@@ -19,7 +19,6 @@ import java.util.*
 
 class ListFragment : Fragment(), ClickListener {
 
-
     private lateinit var viewModel: ListViewModel
     private lateinit var adapter: RecyclerAdapter
 
@@ -51,12 +50,17 @@ class ListFragment : Fragment(), ClickListener {
 
         binding.listRecyclerview.addItemDecoration(mDividerItemDecoration)
 
+
+        /*val testList = listOf(
+            Note("Test","TestTitle","I know you said all IDs are dynamic."),
+            Note("Test1","Test1Title","but is there some ancestor view which you could pick out by.")
+        )
+        adapter.noteList = testList*/
         viewModel.notelist.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.noteList = it
             }
         })
-
         binding.btnNew.setOnClickListener {
             this.findNavController()
                 .navigate(ListFragmentDirections.actionListFragmentToAddNewFragment())
@@ -66,6 +70,10 @@ class ListFragment : Fragment(), ClickListener {
 
         return binding.root
     }
+
+    /*private fun updateAdapter() {
+        adapter.noteList = viewModel.notelist
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

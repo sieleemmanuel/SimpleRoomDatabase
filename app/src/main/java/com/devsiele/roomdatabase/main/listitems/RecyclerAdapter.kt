@@ -16,17 +16,16 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 class RecyclerAdapter(private val listener:ClickListener):RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var noteList = listOf<Note>()
     set(value) {
-         field =value
+         field = value
         notifyDataSetChanged()
     }
 
 
     class ViewHolder(itemView:View, private val listener:ClickListener) :RecyclerView.ViewHolder(itemView){
-        val title_category: TextView = itemView.findViewById<TextView>(R.id.txtTitleCategory)
-        val texts: TextView = itemView.findViewById<TextView>(R.id.txtContent)
+        private val title_category: TextView = itemView.findViewById(R.id.txtTitleCategory)
+        private val texts: TextView = itemView.findViewById(R.id.txtContent)
         fun bind(
             note: Note,
-
         ) {
            title_category.text = "${note.noteCategory}: ${note.noteTitle}"
             texts.text = note.noteText
