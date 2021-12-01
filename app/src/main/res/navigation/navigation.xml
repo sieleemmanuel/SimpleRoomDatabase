@@ -12,14 +12,10 @@
         tools:layout="@layout/list_fragment">
         <action
             android:id="@+id/action_listFragment_to_addNewFragment"
-            app:destination="@id/addNewFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:destination="@id/addNewFragment" />
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_in_left" >
+            app:destination="@id/detailFragment">
             <argument
                 android:name="id"
                 app:argType="long" />
@@ -41,9 +37,7 @@
         tools:layout="@layout/add_new_fragment" >
         <action
             android:id="@+id/action_addNewFragment_to_listFragment"
-            app:destination="@id/listFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -52,9 +46,7 @@
         <action
             android:id="@+id/action_detailFragment_to_listFragment"
             app:destination="@id/listFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_in_left"/>
-
+            />
         <action
             android:id="@+id/action_detailFragment_to_addNewFragment"
             app:destination="@id/addNewFragment">
@@ -75,6 +67,5 @@
     <action
         android:id="@+id/action_navigation_self"
         app:destination="@id/navigation"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_enter_anim" />
+       />
 </navigation>

@@ -21,6 +21,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
@@ -32,8 +33,6 @@ class DetailFragment : Fragment() {
         binding.txtTitle.text = noteTitle
         binding.txtContent.text = noteText
 
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -44,6 +43,9 @@ class DetailFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home->{
+                requireActivity().onBackPressed()
+            }
             R.id.updateNote -> {
                 val noteId: Long = requireArguments().getLong("id")
                 this.findNavController().navigate(

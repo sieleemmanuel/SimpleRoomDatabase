@@ -4,16 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.model.Note
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-
-
-class RecyclerAdapter(private val listener:ClickListener):RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val itemClickListener: ItemClickListener)
+    :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     var noteList = listOf<Note>()
     set(value) {
          field = value
@@ -21,7 +18,7 @@ class RecyclerAdapter(private val listener:ClickListener):RecyclerView.Adapter<R
     }
 
 
-    class ViewHolder(itemView:View, private val listener:ClickListener) :RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView:View) :RecyclerView.ViewHolder(itemView){
         private val title_category: TextView = itemView.findViewById(R.id.txtTitleCategory)
         private val texts: TextView = itemView.findViewById(R.id.txtContent)
         fun bind(
@@ -29,9 +26,6 @@ class RecyclerAdapter(private val listener:ClickListener):RecyclerView.Adapter<R
         ) {
            title_category.text = "${note.noteCategory}: ${note.noteTitle}"
             texts.text = note.noteText
-            itemView.setOnClickListener {
-                listener.onClick(it,note)
-            }
         }
 
     }
@@ -41,19 +35,19 @@ class RecyclerAdapter(private val listener:ClickListener):RecyclerView.Adapter<R
             R.layout.list_items,
             parent,
             false
-        ),listener)
+        ))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val note = noteList[position]
         holder.bind(note)
+        holder.itemView.setOnClickListener {
+            itemClickListener.onItemClicked(note)
+        }
     }
     override fun getItemCount(): Int = noteList.size
 
-}
-
-interface ClickListener{
-    fun onClick(view:View,note: Note){
+    class ItemClickListener(val itemClickListener:(note:Note)->Unit){
+        fun onItemClicked(note: Note) = itemClickListener(note)
     }
-
 }
