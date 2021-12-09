@@ -60,7 +60,7 @@ class ListFragment : Fragment() {
         binding.listRecyclerview.addItemDecoration(mDividerItemDecoration)
         viewModel.notelist.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.noteList = it
+                adapter.submitList(it)
             }
         })
         binding.btnNew.setOnClickListener {
@@ -108,9 +108,9 @@ class ListFragment : Fragment() {
             }
             if (filteredList.isEmpty()) {
                 Toast.makeText(requireContext(), "No match found", Toast.LENGTH_SHORT).show()
-                adapter.noteList = filteredList
+                adapter.submitList(filteredList)
             } else {
-                adapter.noteList = filteredList
+                adapter.submitList(filteredList)
             }
         })
     }

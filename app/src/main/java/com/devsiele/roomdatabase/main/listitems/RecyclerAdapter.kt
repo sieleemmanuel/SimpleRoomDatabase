@@ -4,19 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.model.Note
 
 
 class RecyclerAdapter(private val itemClickListener: ItemClickListener)
-    :RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-    var noteList = listOf<Note>()
+    :ListAdapter<Note,RecyclerAdapter.ViewHolder>(RecyclerDiffCallback()) {
+   /* var noteList = listOf<Note>()
     set(value) {
          field = value
         notifyDataSetChanged()
     }
-
+*/
 
     class ViewHolder(itemView:View) :RecyclerView.ViewHolder(itemView){
         private val title_category: TextView = itemView.findViewById(R.id.txtTitleCategory)
@@ -39,15 +41,24 @@ class RecyclerAdapter(private val itemClickListener: ItemClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val note = noteList[position]
+        val note = getItem(position)
         holder.bind(note)
         holder.itemView.setOnClickListener {
             itemClickListener.onItemClicked(note)
         }
     }
-    override fun getItemCount(): Int = noteList.size
 
     class ItemClickListener(val itemClickListener:(note:Note)->Unit){
         fun onItemClicked(note: Note) = itemClickListener(note)
     }
+}
+class RecyclerDiffCallback: DiffUtil.ItemCallback<Note>() {
+    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+       return oldItem.noteId == newItem.noteId
+    }
+
+    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem == newItem
+    }
+
 }
