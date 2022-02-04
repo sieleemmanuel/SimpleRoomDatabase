@@ -11,7 +11,6 @@ import com.devsiele.roomdatabase.databinding.DetailFragmentBinding
 
 class DetailFragment : Fragment() {
 
-    private lateinit var viewModel: DetailViewModel
     private lateinit var binding: DetailFragmentBinding
     private lateinit var noteCategory: String
     private lateinit var noteTitle: String
@@ -23,7 +22,6 @@ class DetailFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
         val argument: Bundle = requireArguments()
         noteCategory = argument.getString("category")!!

@@ -7,6 +7,14 @@
     <string name="btn_text_save">Save</string>
     <string name="btn_text_close">close</string>
     <string name="btn_update_text">Update</string>
+    <string name="action_delete">Delete</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_id">id</string>
+    <string name="hint_select_category">select category</string>
+    <string name="hint_note_text">Note Text</string>
+    <string name="category_tv">Category</string>
+    <string name="title_tv">Title</string>
+    <string name="description_tv">Description</string>
     <string-array name="categories">
         <item>Select Category</item>
         <item>Uncategorized</item>

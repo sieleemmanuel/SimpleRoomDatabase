@@ -44,16 +44,19 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
             setAdapter(adapter)
             onItemClickListener = this@AddNewFragment
         }
-        argument = requireArguments()
-        binding.editNoteId.setText(argument.getLong("id").toString())
-        binding.editTextCategory.setText(argument.getString("category"), false)
-        binding.editTextTitle.setText(argument.getString("title"))
-        binding.editTextText.setText(argument.getString("note"))
 
-        if (argument.getLong("id").toString() != "0") {
+        argument = requireArguments()
+        if (!argument.isEmpty) {
+            binding.textInputLayoutId.visibility = View.VISIBLE
+            binding.editNoteId.setText(argument.getLong("id").toString())
+            binding.editTextCategory.setText(argument.getString("category"), false)
+            binding.editTextTitle.setText(argument.getString("title"))
+            binding.editTextText.setText(argument.getString("note"))
+
             binding.btnSave.text = getString(R.string.btn_update_text)
             binding.btnSave.setOnClickListener {
-                Toast.makeText(requireContext(), binding.editTextCategory.text, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), binding.editTextCategory.text, Toast.LENGTH_SHORT)
+                    .show()
                 Log.i("MainActivity", binding.editTextCategory.text.toString())
 
                 viewModel.updateNote(
@@ -72,15 +75,17 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
 
             }
         } else {
-            binding.editNoteId.visibility = View.GONE
+            binding.textInputLayoutId.visibility = View.GONE
             binding.btnSave.setOnClickListener {
                 if (binding.editTextTitle.text?.isNotEmpty() == true) {
                     if (binding.editTextText.text?.isNotEmpty() == true) {
-                        if (binding.editTextCategory.text.toString() != adapter.getItem(0).toString()) {
+                        if (binding.editTextCategory.text.toString() != adapter.getItem(0)
+                                .toString()
+                        ) {
                             val newNote = Note(
-                                binding.editTextCategory.text.toString(),
-                                binding.editTextTitle.text.toString(),
-                                binding.editTextText.text.toString()
+                                noteCategory = binding.editTextCategory.text.toString(),
+                                noteTitle = binding.editTextTitle.text.toString(),
+                                noteText = binding.editTextText.text.toString()
                             )
                             viewModel.insertNewNote(newNote)
                             resetValues(adapter)
@@ -100,10 +105,6 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
             }
 
         }
-
-
-
-
 
         binding.btnClose.setOnClickListener {
             this.findNavController().navigate(

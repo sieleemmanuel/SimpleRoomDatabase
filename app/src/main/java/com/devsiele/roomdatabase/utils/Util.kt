@@ -1,4 +1,4 @@
-package com.devsiele.roomdatabase
+package com.devsiele.roomdatabase.utils
 
 import android.os.Build
 import android.text.Html
