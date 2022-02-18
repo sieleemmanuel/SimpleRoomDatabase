@@ -3,13 +3,17 @@ package com.devsiele.roomdatabase.main.newitem
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.database.NoteDatabase
 import com.devsiele.roomdatabase.databinding.AddNewFragmentBinding
@@ -32,7 +36,7 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
             container,
             false
         )
-
+        setUpToolbar()
         val dataSource = NoteDatabase.getInstance(requireContext()).noteDao
         val application = requireActivity().application
 
@@ -103,7 +107,6 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
                     binding.editTextTitle.error = "Title is empty"
                 }
             }
-
         }
 
         binding.btnClose.setOnClickListener {
@@ -112,6 +115,20 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
             )
         }
         return binding.root
+    }
+
+    private fun setUpToolbar() {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.newToolbar.setupWithNavController(navController,appBarConfiguration)
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.setSupportActionBar(binding.newToolbar)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) requireActivity().onBackPressed()
+        return super.onOptionsItemSelected(item)
     }
 
     private fun resetValues(adapter: ArrayAdapter<String>) {

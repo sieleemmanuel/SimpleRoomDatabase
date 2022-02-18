@@ -2,10 +2,12 @@ package com.devsiele.roomdatabase.main.detail
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.databinding.DetailFragmentBinding
 
@@ -23,6 +25,7 @@ class DetailFragment : Fragment() {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
 
+        setUpToolbar()
         val argument: Bundle = requireArguments()
         noteCategory = argument.getString("category")!!
         noteTitle = argument.getString("title")!!
@@ -57,5 +60,13 @@ class DetailFragment : Fragment() {
             }
         }
         return true
+    }
+    private fun setUpToolbar() {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.detailToolbar.setupWithNavController(navController,appBarConfiguration)
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.setSupportActionBar(binding.detailToolbar)
+        setHasOptionsMenu(true)
     }
 }
