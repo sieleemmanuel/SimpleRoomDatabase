@@ -1,41 +1,45 @@
 package com.devsiele.roomdatabase
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
-import android.view.View
-import android.widget.*
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.devsiele.roomdatabase.database.NoteDatabase
-import com.devsiele.roomdatabase.model.Note
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import androidx.navigation.ui.setupWithNavController
+import com.devsiele.roomdatabase.main.listitems.ListFragment
 
-
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController:NavController
+    private lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var listFragment: ListFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         /**
          * Update UI components with NavigationUI
          * */
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        /*val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController,appBarConfiguration)
+        findViewById<Toolbar>(R.id.mainToolbar).setupWithNavController(navController, appBarConfiguration)*/
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()||super.onSupportNavigateUp()
-    }
+    /*override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }*/
+
+   /* override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        Log.d(TAG, "dispatchKeyEvent::===========================:")
+        listFragment = (supportFragmentManager.findFragmentByTag(ListFragment().tag)!! as ListFragment)
+       // listFragment.deselectItems(event!!)
+        return super.dispatchKeyEvent(event)
+    }*/
+
 }
