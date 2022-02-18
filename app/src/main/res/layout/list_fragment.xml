@@ -11,7 +11,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.listitems.ListFragment">
+        tools:context=".main.listitems.ListFragment"
+        android:id="@+id/listFragmentLayout">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/listToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/purple_500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -27,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listToolbar"
             tools:listitem="@layout/list_items" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
