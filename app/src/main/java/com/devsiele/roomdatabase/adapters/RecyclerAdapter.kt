@@ -57,11 +57,14 @@ class RecyclerAdapter(private val itemClickListener: ItemClickListener)
             itemClickListener.onItemClicked(note)
         }
 
-        if (tracker!!.isSelected(currentList[position])){
-            holder.itemView.background = ColorDrawable(Color.parseColor("#80deea"))
-        }else{
-            holder.itemView.background =ColorDrawable(Color.WHITE)
+        tracker.let {
+            if (it!!.isSelected(currentList[position])){
+                holder.itemView.background = ColorDrawable(Color.parseColor("#80deea"))
+            }else{
+                holder.itemView.background = null
+            }
         }
+
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
@@ -69,12 +72,15 @@ class RecyclerAdapter(private val itemClickListener: ItemClickListener)
     class ItemClickListener(val itemClickListener:(note:Note)->Unit){
         fun onItemClicked(note: Note) = itemClickListener(note)
     }
+
     fun setTracker(tracker: SelectionTracker<Note>){
         this.tracker = tracker
     }
+
     fun clearTracker(tracker: SelectionTracker<Note>){
         tracker.clearSelection()
     }
+
 
     fun getItemAtPosition(position: Int): Note? = currentList[position]
 
@@ -95,8 +101,8 @@ class RecyclerDiffCallback: DiffUtil.ItemCallback<Note>() {
 
 class ItemLookUp(private val recyclerView: RecyclerView):ItemDetailsLookup<Note>(){
     override fun getItemDetails(event: MotionEvent): ItemDetails<Note>? {
-        val view = recyclerView.findChildViewUnder(event.x,event.y)
 
+        val view = recyclerView.findChildViewUnder(event.x,event.y)
         if (view!=null){
             return (recyclerView.getChildViewHolder(view) as RecyclerAdapter.ViewHolder).getItemDetails()
         }
