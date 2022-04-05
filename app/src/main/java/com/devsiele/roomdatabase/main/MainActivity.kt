@@ -1,4 +1,4 @@
-package com.devsiele.roomdatabase
+package com.devsiele.roomdatabase.main
 
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +10,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.main.listitems.ListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity"
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     lateinit var appBarConfiguration: AppBarConfiguration

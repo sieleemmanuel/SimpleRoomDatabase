@@ -2,7 +2,7 @@ package com.devsiele.roomdatabase.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
 
 @Dao
 interface NoteDao {
@@ -22,7 +22,7 @@ interface NoteDao {
     suspend fun clearAllNotes()
 
     @Query("SELECT * FROM notes_database_table WHERE noteId=:id")
-    suspend fun getNote(id: Long):Note?
+    suspend fun getNote(id: Long): Note?
 
     @Query(
         "UPDATE notes_database_table SET note_category=:category,note_title=:noteTitle,note_text=:noteText WHERE noteId=:id"

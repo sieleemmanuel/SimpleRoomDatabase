@@ -2,7 +2,7 @@ package com.devsiele.roomdatabase.adapters
 
 import androidx.recyclerview.selection.ItemKeyProvider
 import com.devsiele.roomdatabase.main.listitems.RecyclerAdapter
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
 
 class KeyProvider(private val adapter: RecyclerAdapter):ItemKeyProvider<Note>(SCOPE_CACHED) {
     override fun getKey(position: Int): Note? {

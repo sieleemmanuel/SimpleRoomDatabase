@@ -9,7 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.devsiele.roomdatabase.getOrAwaitValue
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

@@ -1,4 +1,4 @@
-package com.devsiele.roomdatabase.model
+package com.devsiele.roomdatabase.data.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

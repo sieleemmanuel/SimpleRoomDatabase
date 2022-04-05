@@ -1,5 +1,6 @@
 package com.devsiele.roomdatabase.main.newitem
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +18,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.database.NoteDatabase
 import com.devsiele.roomdatabase.databinding.AddNewFragmentBinding
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
 
     private lateinit var viewModel: AddNewViewModel
@@ -28,7 +31,7 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater,
@@ -37,11 +40,8 @@ class AddNewFragment : Fragment(), AdapterView.OnItemClickListener {
             false
         )
         setUpToolbar()
-        val dataSource = NoteDatabase.getInstance(requireContext()).noteDao
-        val application = requireActivity().application
 
-        val viewModelFactory = AddNewViewModelFactory(dataSource, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AddNewViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AddNewViewModel::class.java)
 
         val adapter = ArrayAdapter(requireContext(), R.layout.item_categories, viewModel.categories)
         with(binding.editTextCategory) {

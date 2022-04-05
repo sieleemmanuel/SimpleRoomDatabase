@@ -18,15 +18,16 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.devsiele.roomdatabase.MainActivity
+import com.devsiele.roomdatabase.main.MainActivity
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.adapters.KeyProvider
 import com.devsiele.roomdatabase.database.NoteDatabase
 import com.devsiele.roomdatabase.databinding.ListFragmentBinding
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class ListFragment : Fragment(), ActionMode.Callback {
 
     private lateinit var viewModel: ListViewModel
@@ -51,9 +52,9 @@ class ListFragment : Fragment(), ActionMode.Callback {
 
 
         val database = NoteDatabase.getInstance(requireContext()).noteDao
-        val viewModelFactory = ListViewModelFactory(database)
+       /* val viewModelFactory = ListViewModelFactory(database)*/
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
 
         adapter = RecyclerAdapter(RecyclerAdapter.ItemClickListener { note ->
             findNavController()
@@ -185,7 +186,7 @@ class ListFragment : Fragment(), ActionMode.Callback {
     }
 
     private fun getList(completionHandler: (noteList: List<Note>) -> Unit) {
-        viewModel.notelist.observe(viewLifecycleOwner, { noteList ->
+        viewModel.noteList.observe(viewLifecycleOwner, { noteList ->
             completionHandler.invoke(noteList!!)
         })
     }

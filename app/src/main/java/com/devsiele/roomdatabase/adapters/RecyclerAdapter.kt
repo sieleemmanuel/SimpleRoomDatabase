@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devsiele.roomdatabase.R
-import com.devsiele.roomdatabase.model.Note
+import com.devsiele.roomdatabase.data.model.Note
 
 
 class RecyclerAdapter(private val itemClickListener: ItemClickListener)
@@ -69,7 +69,7 @@ class RecyclerAdapter(private val itemClickListener: ItemClickListener)
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    class ItemClickListener(val itemClickListener:(note:Note)->Unit){
+    class ItemClickListener(val itemClickListener:(note: Note)->Unit){
         fun onItemClicked(note: Note) = itemClickListener(note)
     }
 

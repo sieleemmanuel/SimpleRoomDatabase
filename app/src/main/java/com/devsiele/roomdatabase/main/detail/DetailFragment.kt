@@ -10,7 +10,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.devsiele.roomdatabase.R
 import com.devsiele.roomdatabase.databinding.DetailFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private lateinit var binding: DetailFragmentBinding
